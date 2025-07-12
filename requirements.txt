@@ -115,8 +115,8 @@ threadpoolctl==3.2.0
 tiktoken==0.5.2
 tokenizers==0.15.0
 tomli==2.0.1
-torch==2.0.1
-torchaudio==2.0.2
+torch==2.1.2
+torchaudio==2.1.2
 torchvision==0.16.2
 torchviz==0.0.2
 tqdm==4.66.1
