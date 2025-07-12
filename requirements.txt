@@ -28,7 +28,6 @@ diffusers==0.31.0
 dill==0.3.7
 easydict==1.13
 einops==0.7.0
-en-core-web-sm==3.7.1
 exceptiongroup==1.2.2
 fastapi==0.115.8
 filelock==3.13.1
