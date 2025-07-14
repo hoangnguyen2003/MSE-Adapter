@@ -72,10 +72,10 @@ def run(args):
     print_trainable_parameters(model)
 
     # using multiple gpus
-    # if using_cuda and len(args.gpu_ids) > 1:
-    #     model = torch.nn.DataParallel(model,
-    #                                   device_ids=args.gpu_ids,
-    #                                   output_device=args.gpu_ids[0])
+    if using_cuda and len(args.gpu_ids) > 1:
+        model = torch.nn.DataParallel(model,
+                                      device_ids=args.gpu_ids,
+                                      output_device=args.gpu_ids[0])
     atio = ATIO().getTrain(args)
     # do train
     atio.do_train(model, dataloader)
@@ -199,7 +199,7 @@ def parse_args():
                         help='path to save results.')
     parser.add_argument('--pretrain_LM', type=str, default='/kaggle/input/chatglm3-6b',
                         help='path to load pretrain LLM.')
-    parser.add_argument('--gpu_ids', type=list, default=[0],
+    parser.add_argument('--gpu_ids', type=list, default=[0, 1],
                         help='indicates the gpus will be used. If none, the most-free gpu will be used!')   #使用GPU1
     return parser.parse_args()
 
