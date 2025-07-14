@@ -196,7 +196,7 @@ def parse_args():
                         help='path to save results.')
     parser.add_argument('--res_save_dir', type=str, default='results/results',
                         help='path to save results.')
-    parser.add_argument('--pretrain_LM', type=str, default='/kaggle/input/chatglm3-6b',
+    parser.add_argument('--pretrain_LM', type=str, default='/data/huggingface_model/THUDM/llama2-7b/',
                         help='path to load pretrain LLM.')
     parser.add_argument('--gpu_ids', type=list, default=[0],
                         help='indicates the gpus will be used. If none, the most-free gpu will be used!')   #使用GPU1
