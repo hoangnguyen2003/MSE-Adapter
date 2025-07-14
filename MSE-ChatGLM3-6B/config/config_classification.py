@@ -44,7 +44,7 @@ class ConfigClassification():
             },
             'meld':{
                 'unaligned': {
-                    'dataPath': os.path.join(root_dataset_dir, 'MELD'),
+                    'dataPath': os.path.join(root_dataset_dir, 'meld-processed'),
                     'seq_lens': (65, 157, 32),
                     # (text, audio, video)
                     'feature_dims': (4096, 64, 64),

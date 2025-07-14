@@ -189,7 +189,7 @@ def parse_args():
                         help='support CMCM')
     parser.add_argument('--datasetName', type=str, default='meld',
                         help='support mosei/simsv2/meld/cherma')
-    parser.add_argument('--root_dataset_dir', type=str, default='/kaggle/input/meld-processed',
+    parser.add_argument('--root_dataset_dir', type=str, default='/kaggle/input',
                         help='Location of the root directory where the dataset is stored')
     parser.add_argument('--num_workers', type=int, default=0,
                         help='num workers of loading data')
