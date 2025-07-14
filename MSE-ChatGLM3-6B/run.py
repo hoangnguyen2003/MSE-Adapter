@@ -76,6 +76,7 @@ def run(args):
         model = torch.nn.DataParallel(model,
                                       device_ids=args.gpu_ids,
                                       output_device=args.gpu_ids[0])
+        logger.info(f'multi gpus: {args.gpu_ids}')
     atio = ATIO().getTrain(args)
     # do train
     atio.do_train(model, dataloader)
