@@ -336,7 +336,6 @@ class SelfAttention(torch.nn.Module):
             )
         self.query_key_value = nn.Linear(config.hidden_size, self.qkv_hidden_size,
                                          bias=config.add_bias_linear or config.add_qkv_bias,
-                                         dtype=torch.float32,
                                          device=device, **_config_to_kwargs(config)
                                          )
 
