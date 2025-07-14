@@ -32,7 +32,7 @@ def run(args):
         os.makedirs(args.model_save_dir)
     args.model_save_path = os.path.join(args.model_save_dir,\
                                         f'{args.modelName}-{args.datasetName}-{args.train_mode}.pth')
-    
+    print(111111)
     if len(args.gpu_ids) == 0 and torch.cuda.is_available():
         # load free-most gpu
         print('load free-most gpu')
