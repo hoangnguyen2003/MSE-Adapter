@@ -32,10 +32,8 @@ def run(args):
         os.makedirs(args.model_save_dir)
     args.model_save_path = os.path.join(args.model_save_dir,\
                                         f'{args.modelName}-{args.datasetName}-{args.train_mode}.pth')
-    print(111111)
     if len(args.gpu_ids) == 0 and torch.cuda.is_available():
         # load free-most gpu
-        print('load free-most gpu')
         pynvml.nvmlInit()
         dst_gpu_id, min_mem_used = 0, 1e16
         for g_id in [0, 1, 2, 3]:
@@ -205,6 +203,7 @@ def parse_args():
     return parser.parse_args()
 
 if __name__ == '__main__':
+    print(1111)
     args = parse_args()
     logger = set_log(args)
     # for data_name in ['mosi', 'mosei', 'simsv2', 'iemocap', 'meld', 'cherma' ]:
