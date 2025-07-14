@@ -7,6 +7,7 @@ from transformers import PreTrainedTokenizer
 from transformers.utils import logging, PaddingStrategy
 from transformers.tokenization_utils_base import EncodedInput, BatchEncoding
 
+logger = logging.get_logger(__name__)
 
 class SPTokenizer:
     def __init__(self, model_path: str):
@@ -88,6 +89,7 @@ class ChatGLMTokenizer(PreTrainedTokenizer):
         self.special_tokens = {
             "<bos>": self.tokenizer.bos_id,
             "<eos>": self.tokenizer.eos_id,
+            "<unk>": self.tokenizer.pad_id,
             "<pad>": self.tokenizer.pad_id
         }
         super().__init__(padding_side=padding_side, clean_up_tokenization_spaces=clean_up_tokenization_spaces, **kwargs)
@@ -100,23 +102,39 @@ class ChatGLMTokenizer(PreTrainedTokenizer):
 
     @property
     def unk_token(self) -> str:
-        return "<unk>"
+        return self.tokenizer.sp_model.IdToPiece(self.get_command("<unk>"))
 
     @property
     def pad_token(self) -> str:
-        return "<unk>"
+        return self.tokenizer.sp_model.IdToPiece(self.get_command("<pad>"))
 
     @property
-    def pad_token_id(self):
+    def pad_token_id(self) -> int:
         return self.get_command("<pad>")
 
     @property
     def eos_token(self) -> str:
-        return "</s>"
+        return self.tokenizer.sp_model.IdToPiece(self.get_command("<eos>"))
+
+    @property
+    def unk_token_id(self) -> int:
+        return self.get_command("<unk>")
 
     @property
     def eos_token_id(self):
         return self.get_command("<eos>")
+
+    @unk_token.setter
+    def unk_token(self, value):
+        logger.warning("Setting unk_token is not supported, use the default one.")
+
+    @pad_token.setter
+    def pad_token(self, value):
+        logger.warning("Setting pad_token is not supported, use the default one.")
+
+    @eos_token.setter
+    def eos_token(self, value):
+        logger.warning("Setting eos_token is not supported, use the default one.")
 
     @property
     def vocab_size(self):
