@@ -336,6 +336,7 @@ class SelfAttention(torch.nn.Module):
             )
         self.query_key_value = nn.Linear(config.hidden_size, self.qkv_hidden_size,
                                          bias=config.add_bias_linear or config.add_qkv_bias,
+                                         dtype=torch.float32,
                                          device=device, **_config_to_kwargs(config)
                                          )
 
@@ -373,8 +374,7 @@ class SelfAttention(torch.nn.Module):
         # =====================
 
         # Attention heads [sq, b, h] --> [sq, b, (np * 3 * hn)]
-        mixed_x_layer = self.query_key_value(hidden_states.float())
-        self.query_key_value = self.query_key_value.float()
+        mixed_x_layer = self.query_key_value(hidden_states)
 
         if self.multi_query_attention:
             (query_layer, key_layer, value_layer) = mixed_x_layer.split(
