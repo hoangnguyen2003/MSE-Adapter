@@ -35,6 +35,7 @@ def run(args):
     
     if len(args.gpu_ids) == 0 and torch.cuda.is_available():
         # load free-most gpu
+        print('load free-most gpu')
         pynvml.nvmlInit()
         dst_gpu_id, min_mem_used = 0, 1e16
         for g_id in [0, 1, 2, 3]:
