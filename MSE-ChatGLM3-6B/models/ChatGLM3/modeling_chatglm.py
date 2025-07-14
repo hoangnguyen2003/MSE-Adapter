@@ -1230,7 +1230,7 @@ class ChatGLMForSequenceClassification(ChatGLMPreTrainedModel):
         self.num_labels = config.num_labels
         self.transformer = ChatGLMModel(config, empty_init=empty_init, device=device)
 
-        self.classifier_head = nn.Linear(config.hidden_size, config.num_labels, bias=True, dtype=torch.half)
+        self.classifier_head = nn.Linear(config.hidden_size, config.num_labels, bias=True, dtype=torch.float32)
         if config.classifier_dropout is not None:
             self.dropout = nn.Dropout(config.classifier_dropout)
         else:
@@ -1268,7 +1268,7 @@ class ChatGLMForSequenceClassification(ChatGLMPreTrainedModel):
         )
 
         hidden_states = transformer_outputs[0]
-        pooled_hidden_states = hidden_states[-1]
+        pooled_hidden_states = hidden_states[-1].float()
         if self.dropout is not None:
             pooled_hidden_states = self.dropout(pooled_hidden_states)
         logits = self.classifier_head(pooled_hidden_states)
