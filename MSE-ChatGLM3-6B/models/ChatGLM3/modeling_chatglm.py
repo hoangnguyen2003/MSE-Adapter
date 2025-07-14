@@ -373,7 +373,7 @@ class SelfAttention(torch.nn.Module):
         # =====================
 
         # Attention heads [sq, b, h] --> [sq, b, (np * 3 * hn)]
-        mixed_x_layer = self.query_key_value(hidden_states)
+        mixed_x_layer = self.query_key_value(hidden_states.float())
 
         if self.multi_query_attention:
             (query_layer, key_layer, value_layer) = mixed_x_layer.split(
