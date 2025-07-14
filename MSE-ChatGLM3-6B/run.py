@@ -187,9 +187,9 @@ def parse_args():
                         help='regression / classification')
     parser.add_argument('--modelName', type=str, default='cmcm',
                         help='support CMCM')
-    parser.add_argument('--datasetName', type=str, default='mosi',
+    parser.add_argument('--datasetName', type=str, default='meld',
                         help='support mosei/simsv2/meld/cherma')
-    parser.add_argument('--root_dataset_dir', type=str, default='/home/young/DL/multimodal_dataset/',
+    parser.add_argument('--root_dataset_dir', type=str, default='/kaggle/input/meld-processed',
                         help='Location of the root directory where the dataset is stored')
     parser.add_argument('--num_workers', type=int, default=0,
                         help='num workers of loading data')
