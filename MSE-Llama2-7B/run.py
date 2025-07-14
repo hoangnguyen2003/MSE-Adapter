@@ -102,6 +102,8 @@ def run(args):
 
 
 def run_normal(args):
+    print(1111)
+
     args.res_save_dir = os.path.join(args.res_save_dir)
     init_args = args
     model_results = []
@@ -203,7 +205,6 @@ def parse_args():
     return parser.parse_args()
 
 if __name__ == '__main__':
-    print(1111)
     args = parse_args()
     logger = set_log(args)
     # for data_name in ['mosi', 'mosei', 'simsv2', 'iemocap', 'meld', 'cherma' ]:
