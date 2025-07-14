@@ -36,7 +36,8 @@ class CMCM(nn.Module):
     def forward(self, labels, text, audio, video):
         audio, audio_len = audio[0].float(), audio[1]
         video, video_len = video[0].float(), video[1]
-        text, text_len = text.float(), text[1]
+        text, text_len = text
+        text = text.float()
         text = self.LLM.text_embedding(text[:,0,:].long())
 
         video_h = self.video_LSTM(video, video_len)
