@@ -110,7 +110,7 @@ class ConfigRegression():
                     'max_new_tokens': 4,
                     'pseudo_tokens': 4,
                     'task_specific_prompt': '请对上述多模态内容的情感强度进行预测，范围在[-1.0, 1.0]之间。响应: 情感为',
-                    'batch_size': 6,
+                    'batch_size': 5,
                     'learning_rate': 5e-5,
                     # feature subNets
                     'a_lstm_hidden_size': 64,
