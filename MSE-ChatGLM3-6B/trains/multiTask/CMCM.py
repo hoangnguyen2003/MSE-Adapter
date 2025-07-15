@@ -93,7 +93,7 @@ class CMCM():
         best_valid = 1e8 if min_or_max == 'min' else 0     #评价阈值的初始化
 
         if self.args.resume_training:
-            checkpoint = torch.load('results/checkpoint.pt', weights_only=True)
+            checkpoint = torch.load('results/checkpoint.pt')
 
             epochs = checkpoint['epoch']
             best_epoch = checkpoint['best_epoch']
