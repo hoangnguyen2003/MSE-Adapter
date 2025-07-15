@@ -373,8 +373,7 @@ class SelfAttention(torch.nn.Module):
         # =====================
 
         # Attention heads [sq, b, h] --> [sq, b, (np * 3 * hn)]
-        mixed_x_layer = self.query_key_value(hidden_states.float())
-        self.query_key_value = self.query_key_value.float()
+        mixed_x_layer = self.query_key_value(hidden_states)
 
         if self.multi_query_attention:
             (query_layer, key_layer, value_layer) = mixed_x_layer.split(
@@ -1231,7 +1230,7 @@ class ChatGLMForSequenceClassification(ChatGLMPreTrainedModel):
         self.num_labels = config.num_labels
         self.transformer = ChatGLMModel(config, empty_init=empty_init, device=device)
 
-        self.classifier_head = nn.Linear(config.hidden_size, config.num_labels, bias=True, dtype=torch.float32)
+        self.classifier_head = nn.Linear(config.hidden_size, config.num_labels, bias=True, dtype=torch.half)
         if config.classifier_dropout is not None:
             self.dropout = nn.Dropout(config.classifier_dropout)
         else:
@@ -1269,7 +1268,7 @@ class ChatGLMForSequenceClassification(ChatGLMPreTrainedModel):
         )
 
         hidden_states = transformer_outputs[0]
-        pooled_hidden_states = hidden_states[-1].float()
+        pooled_hidden_states = hidden_states[-1]
         if self.dropout is not None:
             pooled_hidden_states = self.dropout(pooled_hidden_states)
         logits = self.classifier_head(pooled_hidden_states)

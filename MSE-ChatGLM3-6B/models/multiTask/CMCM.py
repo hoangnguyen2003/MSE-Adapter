@@ -34,10 +34,9 @@ class CMCM(nn.Module):
 
 
     def forward(self, labels, text, audio, video):
-        audio, audio_len = audio[0].float(), audio[1]
-        video, video_len = video[0].float(), video[1]
+        audio, audio_len = audio
+        video, video_len = video
         text, text_len = text
-        text = text.float()
         text = self.LLM.text_embedding(text[:,0,:].long())
 
         video_h = self.video_LSTM(video, video_len)
@@ -120,9 +119,9 @@ class Text_guide_mixer(nn.Module):
     def __init__(self):
         super(Text_guide_mixer, self).__init__()
         self.GAP = nn.AdaptiveAvgPool1d(1)
-        self.text_mlp = nn.Linear(4096, 256).float()
+        self.text_mlp = nn.Linear(4096, 256)
     def forward(self, audio, video, text):
-        text_GAP = self.GAP(text.permute(0, 2, 1)).squeeze().float()
+        text_GAP = self.GAP(text.permute(0, 2, 1)).squeeze()
         text_knowledge = self.text_mlp(text_GAP)
 
         audio_mixed = torch.mul(audio, text_knowledge)

@@ -20,7 +20,7 @@ class Language_model (nn.Module):
 
         if use_PLM:
             pretrained_model = args.pretrain_LM              #pretrained model select
-            self.model = ChatGLMForConditionalGeneration.from_pretrained(pretrained_model, trust_remote_code=True, torch_dtype=torch.float32).half()
+            self.model = ChatGLMForConditionalGeneration.from_pretrained(pretrained_model, trust_remote_code=True, torch_dtype=torch.bfloat16).half()
             self.tokenizer = ChatGLMTokenizer.from_pretrained(pretrained_model, trust_remote_code=True)
             self.device = args.device
             self.language = args.language
