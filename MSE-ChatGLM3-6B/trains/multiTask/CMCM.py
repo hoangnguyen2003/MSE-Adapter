@@ -91,6 +91,22 @@ class CMCM():
         lr = []
         min_or_max = 'min' if self.args.KeyEval in ['MAE'] else 'max'
         best_valid = 1e8 if min_or_max == 'min' else 0     #评价阈值的初始化
+
+        if self.args.resume_training:
+            checkpoint = torch.load('results/checkpoint.pt', weights_only=True)
+
+            epochs = checkpoint['epoch']
+            best_epoch = checkpoint['best_epoch']
+            best_valid = checkpoint['best_valid']
+
+            model.load_state_dict(checkpoint['model_state'])
+            optimizer.load_state_dict(checkpoint['optimizer_state'])
+            scheduler.load_state_dict(checkpoint['scheduler_state'])
+            scaler.load_state_dict(checkpoint['scaler_state'])
+
+            losses = checkpoint['losses']
+            lr = checkpoint['lr_history']
+
         # loop util earlystop
         while True: 
             epochs += 1
@@ -187,6 +203,12 @@ class CMCM():
                     # self.loss_plt(losses,CPC_Losses)
                     # self.lr_plt(lr)
                     return
+            
+            self.save_checkpoint(
+                model, optimizer, scheduler, scaler, 
+                epochs, best_epoch, best_valid, 
+                losses, lr,
+            )
 
 
     def do_test(self, model, dataloader, mode="VAL"):
@@ -281,6 +303,19 @@ class CMCM():
         logging.info("Saving checkpoint at epoch {} to {}.".format(epoch, save_path))
         torch.save(state_dict, save_path)
 
+    def save_checkpoint(self, model, optimizer, scheduler, scaler, epoch, best_epoch, best_valid, losses, lr_history):
+        checkpoint = {
+            'epoch': epoch,
+            'best_epoch': best_epoch,
+            'best_valid': best_valid,
+            'model_state': model.state_dict(),
+            'optimizer_state': optimizer.state_dict(),
+            'scheduler_state': scheduler.state_dict(),
+            'scaler_state': scaler.state_dict(),
+            'losses': losses,
+            'lr_history': lr_history,
+        }
+        torch.save(checkpoint, 'results/checkpoint.pt')
 
     # def loss_plt(self,loss,CPC_Losses):
     #     matplotlib.rcParams['font.family'] = 'serif'  # 设置字体族

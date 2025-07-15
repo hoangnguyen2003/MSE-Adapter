@@ -201,6 +201,8 @@ def parse_args():
                         help='path to load pretrain LLM.')
     parser.add_argument('--gpu_ids', type=list, default=[0],
                         help='indicates the gpus will be used. If none, the most-free gpu will be used!')   #使用GPU1
+    parser.add_argument('--resume_training', type=bool, default=False,
+                        help='resume_training?')
     return parser.parse_args()
 
 if __name__ == '__main__':
