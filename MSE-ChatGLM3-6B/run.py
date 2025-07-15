@@ -215,5 +215,5 @@ if __name__ == '__main__':
 
         args.datasetName = data_name
         # args.seeds = [1111, 2222, 3333, 4444, 5555]
-        args.seeds = [1111]
+        args.seeds = [1111, 2222]
         run_normal(args)
