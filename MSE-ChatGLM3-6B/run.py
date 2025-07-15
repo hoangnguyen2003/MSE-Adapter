@@ -187,7 +187,7 @@ def parse_args():
                         help='regression / classification')
     parser.add_argument('--modelName', type=str, default='cmcm',
                         help='support CMCM')
-    parser.add_argument('--datasetName', type=str, default='meld',
+    parser.add_argument('--datasetName', type=str, default='simsv2',
                         help='support mosei/simsv2/meld/cherma')
     parser.add_argument('--root_dataset_dir', type=str, default='/kaggle/input',
                         help='Location of the root directory where the dataset is stored')
@@ -207,7 +207,7 @@ if __name__ == '__main__':
     args = parse_args()
     logger = set_log(args)
     # for data_name in ['mosei', 'simsv2', 'meld', 'cherma']:
-    for data_name in ['meld']:
+    for data_name in ['simsv2']:
         if data_name in ['mosei', 'simsv2']:
             args.train_mode = 'regression'
         else:
@@ -215,5 +215,5 @@ if __name__ == '__main__':
 
         args.datasetName = data_name
         # args.seeds = [1111, 2222, 3333, 4444, 5555]
-        args.seeds = [1111, 2222]
+        args.seeds = [1111]
         run_normal(args)

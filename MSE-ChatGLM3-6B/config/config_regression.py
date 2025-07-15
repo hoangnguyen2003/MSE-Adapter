@@ -57,7 +57,7 @@ class ConfigRegression():
 
             'simsv2': {
                 'unaligned': {
-                    'dataPath': os.path.join(root_dataset_dir, 'SIMS_V2/ch-simsv2s.pkl'),
+                    'dataPath': os.path.join(root_dataset_dir, 'simsv2-processed/ch-simsv2s.pkl'),
                     # (batch_size, seq_lens, feature_dim)
                     'seq_lens': (50, 925, 232),  # (text, audio, video)
                     'feature_dims': (4096, 25, 177),  # (text, audio, video)
